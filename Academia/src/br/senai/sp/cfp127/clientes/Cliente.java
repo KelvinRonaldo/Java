@@ -18,6 +18,16 @@ public class Cliente {
 	private int nivelAtividade;
 	private char sexo;
 	
+	//**MÉTODO CONSTRUTOR DA CLASSE(tem o mesmo nome da classe)
+	public Cliente(String nome) {
+		this.nome = nome;
+	}
+	
+	public Cliente(String nome, double peso, double altura) {
+		this.nome = nome;
+		this.peso = peso;
+		this.altura = altura;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -200,10 +210,6 @@ public class Cliente {
 		
 		return this.fcm;
 	}
-	
-	
-
-	
 	
 }
 
