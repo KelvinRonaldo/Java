@@ -12,6 +12,7 @@ public class AcademiaApp {
 			kelvin.setPeso(84);
 			kelvin.setSexo('f');
 			kelvin.setIdade(43);
+			kelvin.setCidade("Carapicuíba");
 			
 			
 			System.out.println(kelvin.getImc());

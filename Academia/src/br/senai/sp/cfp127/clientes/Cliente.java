@@ -2,6 +2,7 @@ package br.senai.sp.cfp127.clientes;
 
 public class Cliente {
 	
+	//fala fiote
 	private String nome;
 	private String logradouro;
 	private String bairro;
