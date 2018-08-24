@@ -12,8 +12,8 @@ public class Cliente {
 	private double peso;
 	private double altura;
 	private String imc;
-	private String tmb;
-	private String fcm;
+	private double tmb;
+	private double fcm;
 	private int idade;
 	private int nivelAtividade;
 	private char sexo;
@@ -27,6 +27,9 @@ public class Cliente {
 		this.nome = nome;
 		this.peso = peso;
 		this.altura = altura;
+	}
+	public Cliente() {
+		
 	}
 	
 	public String getNome() {
@@ -170,42 +173,41 @@ public class Cliente {
 	}
 	
 	
-	public String getTmb() {
+	public double getTmb() {
 		
-		 double tmb = 0;
 		 
 		if (this.sexo == 'm') {
-			tmb = 66 + (13.7*this.peso)+(5*(this.altura*100))-(6.8*this.idade);
+			this.tmb = 66 + (13.7*this.peso)+(5*(this.altura*100))-(6.8*this.idade);
 		}else {
-			tmb = 665 + (9.6*this.peso)+(1.8*(this.altura*100))-(4.7*this.idade);
+			this.tmb = 665 + (9.6*this.peso)+(1.8*(this.altura*100))-(4.7*this.idade);
 		}
 		
 		if(this.nivelAtividade == 1) { 
-			 this.tmb = "Seu TMB é " + (tmb*1.2);
+			 this.tmb = (tmb*1.2);
 		 }else if(this.nivelAtividade == 2) {
-			 this.tmb = "Seu TMB é " + (tmb*1.37);
+			 this.tmb = (tmb*1.37);
 		 }else if(this.nivelAtividade == 3) {
-			 this.tmb = "Seu TMB é " + (tmb*1.55);
+			 this.tmb = (tmb*1.55);
 		 }else if(this.nivelAtividade == 4) {
-			 this.tmb = "Seu TMB é " + (tmb*1.72);
+			 this.tmb = (tmb*1.72);
 		 }else {
-			 this.tmb = "Seu TMB é " + (tmb*1.9);
+			 this.tmb = (tmb*1.9);
 		 }
 		 
 		return this.tmb;
 	}
 	
 	
-	public String getFcm() {
+	public double getFcm() {
 		
 		double fcm = 0; 
 		
 		if(this.sexo == 'm') {
 			fcm = ((210-(0.5*this.idade))-this.peso/100)+4;
-			this.fcm = "Seu FCM é de " + fcm;
+			this.fcm = fcm;
 		}else {
 			fcm = ((210-(0.5*this.idade))-this.peso/100);
-			this.fcm = "Seu FCM é de " + fcm;
+			this.fcm = fcm;
 		}
 		
 		return this.fcm;
