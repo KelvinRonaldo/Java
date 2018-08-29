@@ -4,19 +4,19 @@ public class Cliente {
 	
 	//fala fiote
 	private String nome;
+	private int idade;
+	private char sexo;
+	private double peso;
+	private double altura;
+	private int nivelAtividade;
 	private String logradouro;
 	private String bairro;
 	private String cidade;
 	private String telefone;
 	private String email;
-	private double peso;
-	private double altura;
 	private String imc;
 	private double tmb;
 	private double fcm;
-	private int idade;
-	private int nivelAtividade;
-	private char sexo;
 	
 	//**MÉTODO CONSTRUTOR DA CLASSE(tem o mesmo nome da classe)
 	public Cliente(String nome) {
@@ -133,7 +133,7 @@ public class Cliente {
 	
 	public String getImc() {
 								//     ↓função matemática de potência
-		double imc = this.peso / Math.pow(this.altura, 2);
+		double imc = this.peso / Math.pow(this.altura/100, 2);
 		if (imc < 17) {
 			this.imc = "Seu IMC é " + imc + "\n" 
 					+ "Você esta muito abaixo do peso.\n"
@@ -177,9 +177,9 @@ public class Cliente {
 		
 		 
 		if (this.sexo == 'm') {
-			this.tmb = 66 + (13.7*this.peso)+(5*(this.altura*100))-(6.8*this.idade);
+			this.tmb = 66 + (13.7*this.peso)+(5*(this.altura))-(6.8*this.idade);
 		}else {
-			this.tmb = 665 + (9.6*this.peso)+(1.8*(this.altura*100))-(4.7*this.idade);
+			this.tmb = 665 + (9.6*this.peso)+(1.8*(this.altura))-(4.7*this.idade);
 		}
 		
 		if(this.nivelAtividade == 1) { 

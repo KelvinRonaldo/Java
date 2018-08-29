@@ -16,7 +16,7 @@ public class FrmCliente extends JFrame{
 	//vairáveis de referência dos componente do frame(janela)
 	private JPanel painelTitulo, painelDados, painelResultado;
 		//declarar várias variáveis do mesmo tipo
-	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblIdade, lblAnos, lblNivelAtiv, lblIconeCalcular;
+	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblIdade, lblAnos, lblNivelAtiv;
 	private JLabel lblNomeResult, lblSexoResult, lblPesoResult, lblAlturaResult, lblIdadeResult, lblNivelAtivResult, lblImcResult, lblTmbResult, lblFcmResult;
 	private JLabel lblNomeR, lblSexoR, lblPesoR, lblAlturaR, lblIdadeR, lblNivelAtivR, lblTmbR, lblFcmR;
 	private JTextField txtNome, txtPeso, txtAltura, txtIdade;
@@ -30,7 +30,7 @@ public class FrmCliente extends JFrame{
 	private Font arial18 = new Font("Arial", 0, 18);
 	private Font arialBold = new Font("Arial", 1, 20);
 	private Font arialNarrow = new Font("Arial Narrow", 0, 18);
-	private Font verdana = new Font("Verdana", 0, 20);
+	private Font verdana20 = new Font("Verdana", 0, 20);
 	private ImageIcon iconeTitulo, iconeCalcular;
 	private TitledBorder bordaPainelDados, bordaPainelResultado;
 	private JRadioButton radioM, radioF;
@@ -48,7 +48,7 @@ public class FrmCliente extends JFrame{
 		//tamanho do frame
 		setSize(1280, 720);
 		//não usar layout pré-definido
-		setLayout(null);
+		getContentPane().setLayout(null);
 		//permitir ou não que o usuário mude o tamanho da janela
 		setResizable(false);
 		//finalizar processo da janela ao fecha-la
@@ -57,7 +57,7 @@ public class FrmCliente extends JFrame{
 				
 		//**IMAGENS DO FORMULÁRIO
 		iconeTitulo = new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/gym64.png"));
-		iconeCalcular = new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/calculadora.png"));
+		iconeCalcular = new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/calculator48.png"));
 		//**LABELS DO PAINEL TÍTULO
 		lblIcone = new JLabel(iconeTitulo);
 		//setBounds = definir posição e tamanho do objeto
@@ -93,7 +93,7 @@ public class FrmCliente extends JFrame{
 		lblNome.setFont(arialBold);
 		//DIGITAR NOME
 		txtNome = new JTextField();
-		txtNome.setBounds(120, 30, 444, 30);
+		txtNome.setBounds(120, 31, 341, 30);
 		txtNome.setFont(arial18);
 
 		
@@ -108,7 +108,7 @@ public class FrmCliente extends JFrame{
 		radioM.setBounds(120, 80, 150, 20);
 		radioM.setFont(arial);
 		radioF = new JRadioButton("Feminino");
-		radioF.setBounds(340, 80, 150, 20);
+		radioF.setBounds(272, 80, 150, 20);
 		radioF.setFont(arial);
 		grupoRadio.add(radioF);
 		grupoRadio.add(radioM);
@@ -162,21 +162,17 @@ public class FrmCliente extends JFrame{
 		String atividades[] = {"Sedentário", "Levemente Ativo","Moderadamente Ativo","Bastante Ativo","Muito Ativo"};
 		comboAtividades = new JComboBox(atividades);
 		comboAtividades.setBounds(35, 340, 300, 35);
-		comboAtividades.setFont(verdana);
+		comboAtividades.setFont(verdana20);
 		
 		//BOTÃO CALCULAR
 		btnCalcular = new JButton("Calcular");
-		btnCalcular.setBounds(159, 430, 300, 60);
+		btnCalcular.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/calculadora32.png")));
+		btnCalcular.setBounds(93, 430, 300, 60);
 		btnCalcular.setFont(arial);
-		
-		lblIconeCalcular = new JLabel(iconeCalcular);
-		lblIconeCalcular.setBounds(159, 430, 300, 60);
-		btnCalcular.add(lblIconeCalcular);
-		
 		//** PAINEL DADOS
 		painelDados = new JPanel();
 		painelDados.setLayout(null);
-		painelDados.setBounds(15, 115, 617, 560);
+		painelDados.setBounds(15, 115, 499, 560);
 		
 		painelDados.add(lblNome);
 		painelDados.add(txtNome);
@@ -194,6 +190,8 @@ public class FrmCliente extends JFrame{
 		painelDados.add(lblAnos);
 		painelDados.add(lblNivelAtiv);
 		painelDados.add(comboAtividades);
+		
+		
 		painelDados.add(btnCalcular);
 		
 		bordaPainelDados = new TitledBorder("Dados do Cliente:");
@@ -202,42 +200,42 @@ public class FrmCliente extends JFrame{
 		
 		//NOME
 		lblNomeResult = new JLabel("Nome: ", JLabel.RIGHT);
-		lblNomeResult.setBounds(35, 20, 80, 50);
+		lblNomeResult.setBounds(145, 33, 80, 30);
 		lblNomeResult.setFont(arialBold);
 		//RESULTADO NOME
-		lblNomeR = new JLabel("RESULTADO");
-		lblNomeR.setBounds(120, 20, 150, 50);
-		lblNomeR.setFont(verdana);
+		lblNomeR = new JLabel("...");
+		lblNomeR.setBounds(230, 32, 467, 30);
+		lblNomeR.setFont(verdana20);
 		lblNomeR.setForeground(verde);
 		
 		//PESO
 		lblPesoResult = new JLabel("Peso: ", JLabel.RIGHT);
-		lblPesoResult.setBounds(35, 75, 80, 30);
+		lblPesoResult.setBounds(145, 77, 80, 30);
 		lblPesoResult.setFont(arialBold);
 		//RESULTADO PESO
-		lblPesoR = new JLabel("RESULTADO");
-		lblPesoR.setBounds(120, 75, 150, 30);
-		lblPesoR.setFont(verdana);
+		lblPesoR = new JLabel("...");
+		lblPesoR.setBounds(230, 77, 150, 30);
+		lblPesoR.setFont(verdana20);
 		lblPesoR.setForeground(verde);
 		
 		//ALTURA
 		lblAlturaResult = new JLabel("Altura: ", JLabel.RIGHT);
-		lblAlturaResult.setBounds(35, 130, 80, 30);
+		lblAlturaResult.setBounds(145, 132, 80, 30);
 		lblAlturaResult.setFont(arialBold);
 		//RESULTADO ALTURA
-		lblAlturaR = new JLabel("RESULTADO");
-		lblAlturaR.setBounds(120, 130, 150, 30);
-		lblAlturaR.setFont(verdana);
+		lblAlturaR = new JLabel("...");
+		lblAlturaR.setBounds(230, 132, 150, 30);
+		lblAlturaR.setFont(verdana20);
 		lblAlturaR.setForeground(verde);
 		
 		//IDADE
 		lblIdadeResult = new JLabel("Idade: ", JLabel.RIGHT);
-		lblIdadeResult.setBounds(35, 185, 80, 30);
+		lblIdadeResult.setBounds(145, 187, 80, 30);
 		lblIdadeResult.setFont(arialBold);
 		//RESULTADO IDADE
-		lblIdadeR = new JLabel("RESULTADO");
-		lblIdadeR.setBounds(120, 185, 150, 30);
-		lblIdadeR.setFont(verdana);
+		lblIdadeR = new JLabel("...");
+		lblIdadeR.setBounds(230, 187, 150, 30);
+		lblIdadeR.setFont(verdana20);
 		lblIdadeR.setForeground(verde);
 		
 		
@@ -246,51 +244,52 @@ public class FrmCliente extends JFrame{
 		lblNivelAtivResult.setBounds(35, 240, 190, 30);
 		lblNivelAtivResult.setFont(arialBold);
 		//RESULTADO NIVEL DE ATIVIDADE
-		lblNivelAtivR = new JLabel("RESULTADO");
-		lblNivelAtivR.setBounds(230, 240, 150, 30);
-		lblNivelAtivR.setFont(verdana);
+		lblNivelAtivR = new JLabel("...");
+		lblNivelAtivR.setBounds(230, 240, 290, 30);
+		lblNivelAtivR.setFont(verdana20);
 		
 		
 		//IMC
 		lblImcResult = new JLabel("IMC: ", JLabel.RIGHT);
-		lblImcResult.setBounds(35, 310, 80, 20);
+		lblImcResult.setBounds(145, 310, 75, 30);
 		lblImcResult.setFont(arialBold);	
 		
 		txtImcResult = new JTextArea();
+		txtImcResult.setFont(new Font("Arial", Font.PLAIN, 19));
 		//CRIAR PAINEL COM BARRA DE ROLAGEM COM TEXTAREA DENTRO
 		ImcScroll = new JScrollPane(txtImcResult);
 		//QUEBRA A LINHA DO TEXTAREA
 		txtImcResult.setLineWrap(true);
 		//QUEBRA A LINHA MAS NÃO AS PALAVRAS
 		txtImcResult.setWrapStyleWord(true);
-		ImcScroll.setBounds(120, 310, 400, 100);
+		ImcScroll.setBounds(230, 310, 300, 100);
 		
 		
 		//TMB
 		lblTmbResult = new JLabel("TMB: ", JLabel.RIGHT);
-		lblTmbResult.setBounds(35, 415, 80, 30);
+		lblTmbResult.setBounds(145, 421, 80, 30);
 		lblTmbResult.setFont(arialBold);
 		//RESULTADO TMB
-		lblTmbR = new JLabel("RESULTADO");
-		lblTmbR.setBounds(120, 415, 150, 30);
-		lblTmbR.setFont(verdana);
+		lblTmbR = new JLabel("...");
+		lblTmbR.setBounds(230, 421, 150, 30);
+		lblTmbR.setFont(verdana20);
 		lblTmbR.setForeground(verde);
 		
 		
 		//FCM
 		lblFcmResult = new JLabel("FCM: ", JLabel.RIGHT);
-		lblFcmResult.setBounds(35, 465, 80, 30);
+		lblFcmResult.setBounds(145, 471, 80, 30);
 		lblFcmResult.setFont(arialBold);
 		//RESULTADO FCM
-		lblFcmR = new JLabel("RESULTADO");
-		lblFcmR.setBounds(120, 465, 150, 30);
-		lblFcmR.setFont(verdana);
+		lblFcmR = new JLabel("...");
+		lblFcmR.setBounds(230, 471, 150, 30);
+		lblFcmR.setFont(verdana20);
 		
 
 		//**PAINEL RESULTADOS
 		painelResultado = new JPanel();
 		painelResultado.setLayout(null);
-		painelResultado.setBounds(640, 115, 617, 560);
+		painelResultado.setBounds(524, 115, 733, 560);
 		
 		painelResultado.add(lblNomeResult);
 		painelResultado.add(lblNomeR);
@@ -333,9 +332,9 @@ public class FrmCliente extends JFrame{
 				cliente.setIdade(Integer.parseInt(txtIdade.getText()));
 
 				if(radioM.isSelected()){
-					cliente.setSexo('M');
-				}else if(radioM.isSelected()) {
-					cliente.setSexo('F');
+					cliente.setSexo('m');
+				}else if(radioF.isSelected()) {
+					cliente.setSexo('f');
 				}else {
 					JOptionPane.showMessageDialog(null, "Selecione o sexo do cliente(Masculino ou Feminino)!");
 				}
@@ -349,6 +348,7 @@ public class FrmCliente extends JFrame{
 				txtImcResult.setText(cliente.getImc());
 				lblTmbR.setText(String.valueOf(cliente.getTmb()));
 				lblFcmR.setText(String.valueOf(cliente.getFcm()));
+				lblNivelAtivR.setText(comboAtividades.getSelectedItem().toString());
 				
 				//lblPesoR.setText(cliente.getPeso()+ "Kg");
 			}
@@ -358,5 +358,4 @@ public class FrmCliente extends JFrame{
 		//fazer o frame aparecer
 		setVisible(true);
 	}
-	
 }
