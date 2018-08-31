@@ -14,7 +14,7 @@ public class Cliente {
 	private String cidade;
 	private String telefone;
 	private String email;
-	private String imc;
+	private double imc;
 	private double tmb;
 	private double fcm;
 	
@@ -131,10 +131,10 @@ public class Cliente {
 	}
 	
 	
-	public String getImc() {
+	public double getImc() {
 								//     ↓função matemática de potência
-		double imc = this.peso / Math.pow(this.altura/100, 2);
-		if (imc < 17) {
+		this.imc = this.peso / Math.pow(this.altura/100, 2);
+		/*if (imc < 17) {
 			this.imc = "Seu IMC é " + imc + "\n" 
 					+ "Você esta muito abaixo do peso.\n"
 					+ "Riscos: Queda de cabelo, infertilidade \n"
@@ -168,7 +168,7 @@ public class Cliente {
 					+ "Riscos: Refluxo, dificuldade para se \n"
 					+ "mover, escaras, diabetes, infarto, AVC";
 		}
-		
+		*/
 		return this.imc;
 	}
 	
