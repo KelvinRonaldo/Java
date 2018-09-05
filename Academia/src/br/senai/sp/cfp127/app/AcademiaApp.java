@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.senai.sp.cfp127.view.FrmCliente;
+import br.senai.sp.cfp127.view.FrmFuncionario;
 
 public class AcademiaApp {
 
@@ -23,8 +24,9 @@ public class AcademiaApp {
 		}
 		
 		
-		FrmCliente janela = new FrmCliente();
-		
+		//FrmCliente janela = new FrmCliente();
+		FrmFuncionario funcionario = new FrmFuncionario();
+		funcionario.setVisible(true);
 		
 	}
 

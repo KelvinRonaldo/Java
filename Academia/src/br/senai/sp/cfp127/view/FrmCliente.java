@@ -362,7 +362,7 @@ public class FrmCliente extends JFrame {
 		lblTmbR.setBounds(69, 99, 102, 30);
 		painelResultado.add(lblTmbR);
 		lblTmbR.setFont(verdana20);
-		lblTmbR.setForeground(verde);
+		lblTmbR.setForeground(new Color(0, 100, 0));
 		// RESULTADO FCM
 		lblFcmR = new JLabel("...");
 		lblFcmR.setBounds(69, 156, 102, 30);
@@ -370,7 +370,7 @@ public class FrmCliente extends JFrame {
 		lblFcmR.setFont(verdana20);
 		
 		lblImcR = new JLabel("...");
-		lblImcR.setForeground(Color.GREEN);
+		lblImcR.setForeground(new Color(0, 100, 0));
 		lblImcR.setFont(new Font("Verdana", Font.PLAIN, 20));
 		lblImcR.setBounds(69, 42, 102, 30);
 		painelResultado.add(lblImcR);
