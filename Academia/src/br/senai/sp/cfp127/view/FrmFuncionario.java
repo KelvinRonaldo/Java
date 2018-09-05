@@ -143,7 +143,7 @@ public class FrmFuncionario extends JFrame {
 					String consulta = "SELECT * FROM funcionario WHERE codigo = ?";
 					//statement - leva a função SQl ao banco de dados
 					PreparedStatement stm = conexao.prepareStatement(consulta);
-					//especificar ao statement que a "?" na função SQL é o conteúdo da caixa de txt codigo
+					//especificar ao statement que a primeira"?" na função SQL é o conteúdo da caixa de txt codigo
 					stm.setInt(1, Integer.parseInt(txtCodigo.getText()));
 					//o statement leva a função SQL ao banco de dados
 					ResultSet rs = stm.executeQuery();
