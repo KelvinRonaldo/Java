@@ -1,7 +1,5 @@
 package br.senai.sp.cfp127.app;
 
-import java.util.Date;
-
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
