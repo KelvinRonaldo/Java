@@ -8,6 +8,24 @@ public class Pessoa {
 	private String telefone;
 	private String endereco;
 	private String email;
+	private String cidade;
+	private int peso;
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public int getPeso() {
+		return peso;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
 
 	public String getNome() {
 		return nome;

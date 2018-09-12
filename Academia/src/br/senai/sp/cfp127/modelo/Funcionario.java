@@ -4,23 +4,14 @@ package br.senai.sp.cfp127.modelo;
 //            //↓herdeiro        //↓o que dara herança
 public class Funcionario extends Pessoa {
 
-	private String cargo;
-	private double salario;
-
-	public String getCargo() {
-		return cargo;
+	private int codigo;
+	
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
+	public int getCodigo() {
+		return codigo;
 	}
-
-	public double getSalario() {
-		return salario;
-	}
-
-	public void setSalario(double salario) {
-		this.salario = salario;
-	}
-
+	
 }

@@ -6,6 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.senai.sp.cfp127.dao.FuncionarioDAO;
+import br.senai.sp.cfp127.dbutil.Conexao;
+import br.senai.sp.cfp127.modelo.Funcionario;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -103,10 +108,12 @@ public class FrmFuncionario extends JFrame {
 		contentPane.add(btnNovo);
 		
 		JButton btnAtualizar = new JButton("ATUALIZAR");
+		
 		btnAtualizar.setBounds(186, 337, 104, 78);
 		contentPane.add(btnAtualizar);
 		
 		JButton btnExcluir = new JButton("EXCLUIR");
+		
 		btnExcluir.setBounds(331, 337, 104, 78);
 		contentPane.add(btnExcluir);
 		
@@ -120,21 +127,17 @@ public class FrmFuncionario extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-					//driver do access
-					Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-					//conexao até o banco
-					Connection conexao = DriverManager.getConnection("jdbc:ucanaccess://Z:/POO/git/academia.accdb");
 					//função em SQL
 					String consulta = "SELECT * FROM funcionario WHERE codigo = ?";
 					//statement - leva a função SQl ao banco de dados
-					PreparedStatement stm = conexao.prepareStatement(consulta);
+					PreparedStatement stm = Conexao.getConexao().prepareStatement(consulta);
 					//especificar ao statement que a primeira"?" na função SQL é o conteúdo da caixa de txt codigo
 					stm.setInt(1, Integer.parseInt(txtCodigo.getText()));
 					//o statement leva a função SQL ao banco de dados
 					ResultSet rs = stm.executeQuery();
-											// ↑ query é só no select 
+											// ↑ query é só no 'SELECT' 
 					if(rs.next()) {
-						txtNome.setText(rs.getString("nome"));
+						txtNome.setText(rs.getString("nome"));                	
 						txtEmail.setText(rs.getString("email"));
 						txtCidade.setText(rs.getString("cidade"));
 						txtPeso.setText(String.valueOf(rs.getInt("peso")));
@@ -151,33 +154,15 @@ public class FrmFuncionario extends JFrame {
 		
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				Funcionario funcionario = new Funcionario();
+				funcionario.setCidade(txtCidade.getText());
+				funcionario.setNome(txtNome.getText());
+				funcionario.setEmail(txtEmail.getText());
+				funcionario.setPeso(Integer.parseInt(txtPeso.getText()));
 				
-				try {
-					//driver do access
-					Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-					//conexao até o banco
-					Connection conexao = DriverManager.getConnection("jdbc:ucanaccess://Z:/POO/git/academia.accdb");
-					//função em SQL
-					String consulta = "INSERT INTO funcionario(nome, email, cidade, peso) "
-							+ "VALUES (?, ?, ?, ?)";
-					//statement - leva a função SQl ao banco de dados
-					PreparedStatement stm = conexao.prepareStatement(consulta);
-					//especificar ao statement que qual "?"  na função SQL é o conteúdo de cada campo
-					stm.setString(1, txtNome.getText());
-					stm.setString(2, txtEmail.getText());
-					stm.setString(3, txtCidade.getText());
-					stm.setInt(4, Integer.parseInt(txtPeso.getText()));
-					
-					if(stm.execute()) {
-						JOptionPane.showMessageDialog(null, "Ocorreu um erro na gravação.");
-					}else {
-						JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso.");
-					}
-					
-				} catch (Exception erro) {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro na gravação.");
-				}
-				
+				FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+				dao.gravar();
 			}
 		});
 		
@@ -189,22 +174,37 @@ public class FrmFuncionario extends JFrame {
 					btnSalvar.setEnabled(true);
 					btnNovo.setEnabled(false);
 					btnConsultar.setEnabled(false);
-					limparCampos();
 					txtCodigo.setEnabled(false);
 					btnNovo.setText("Cancelar");
 					txtNome.requestFocus();
+					limparCampos();
 				} else {
 					btnSalvar.setEnabled(false);
 					btnNovo.setText("Cancelar");
 					btnConsultar.setEnabled(true);
 					txtCodigo.setEnabled(true);
 					txtCodigo.requestFocus();
-					
-					
 				}
 		
 			}
 		});
+		
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			
+				
+			}
+		});
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		
+		
 	}
 	
 	private void limparCampos() {
