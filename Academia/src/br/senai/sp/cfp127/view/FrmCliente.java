@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import br.senai.sp.cfp127.clientes.Cliente;
+import br.senai.sp.cfp127.dao.ClienteDAO;
+
 import javax.swing.table.DefaultTableModel;
 
 //↓↓ a classe FrmCLiente herda tudo a classe JFrame tem
@@ -16,11 +18,11 @@ public class FrmCliente extends JFrame {
 	// vairáveis de referência dos componente do frame(janela)
 	private JPanel painelTitulo, painelDados, painelResultado;
 	// declarar várias variáveis do mesmo tipo
-	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblDataNascimento, lblAnos,
+	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblIdade, lblAnos,
 			lblNivelAtiv;
 	private JLabel lblSexoResult, lblImcResult, lblTmbResult, lblFcmResult;
 	private JLabel lblSexoR, lblImcR, lblTmbR, lblFcmR;
-	private JTextField txtNome, txtPeso, txtAltura, txtdataNascimento;
+	private JTextField txtNome, txtPeso, txtAltura, txtIdade;
 	// criar objeto cor
 	private Color cinza = new Color(200, 200, 200);
 	private Color azulEscuro = new Color(7, 71, 102);
@@ -228,15 +230,15 @@ public class FrmCliente extends JFrame {
 		txtAltura.setFont(arial18);
 
 		// IDADE
-		lblDataNascimento = new JLabel("Data de Nascimento");
-		lblDataNascimento.setBounds(386, 39, 196, 30);
-		painelDados.add(lblDataNascimento);
-		lblDataNascimento.setFont(arialBold);
+		lblIdade = new JLabel("Data de Nascimento");
+		lblIdade.setBounds(386, 39, 196, 30);
+		painelDados.add(lblIdade);
+		lblIdade.setFont(arialBold);
 		// DIGITAR IDADE
-		txtdataNascimento = new JTextField();
-		txtdataNascimento.setBounds(386, 70, 100, 30);
-		painelDados.add(txtdataNascimento);
-		txtdataNascimento.setFont(arial18);
+		txtIdade = new JTextField();
+		txtIdade.setBounds(386, 70, 100, 30);
+		painelDados.add(txtIdade);
+		txtIdade.setFont(arial18);
 		// Centimetros
 		lblCm = new JLabel("Cm");
 		lblCm.setBounds(712, 156, 31, 25);
@@ -381,7 +383,7 @@ public class FrmCliente extends JFrame {
 
 		// BOTÃO CALCULAR
 		btnCalcular = new JButton("");
-		btnCalcular.setBounds(657, 25, 127, 60);
+		btnCalcular.setBounds(657, 5, 127, 80);
 		panel_5.add(btnCalcular);
 		btnCalcular.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/disquete64.png")));
 		btnCalcular.setFont(arial);
@@ -390,45 +392,56 @@ public class FrmCliente extends JFrame {
 
 		// ***LISTENER DO BOTÃO
 		btnCalcular.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				Cliente cliente = new Cliente();
-				cliente.setNome(txtNome.getText());
-				cliente.setPeso(Double.parseDouble(txtPeso.getText()));
-				cliente.setAltura(Double.parseDouble(txtAltura.getText()));
-				cliente.setIdade(Integer.parseInt(txtdataNascimento.getText()));
-
-				if (radioM.isSelected()) {
-					cliente.setSexo('m');
-				} else if (radioF.isSelected()) {
-					cliente.setSexo('f');
-				} else {
-					JOptionPane.showMessageDialog(null, "Selecione o sexo do cliente(Masculino ou Feminino)!");
-				}
-
-				cliente.setNivelAtividade(comboAtividades.getSelectedIndex() + 1);
-
-				lblImcR.setText(String.valueOf(cliente.getImc()));
-				lblTmbR.setText(String.valueOf(cliente.getTmb()));
-				lblFcmR.setText(String.valueOf(cliente.getFcm()));
-				System.out.println(cliente.getImc());
-				// lblPesoR.setText(cliente.getPeso()+ "Kg");
+				
+				criarCliente("gravar");
+				
 			}
 		});
-
+		
 		// fazer o frame aparecer
 		setVisible(true);
 	}
 	
 	private void criarCliente(String operacao) {
+		
 		Cliente cliente = new Cliente();
 		cliente.setNome(txtNome.getText());
-		cliente.set(txtNome.getText());
-		cliente.setNome(txtNome.getText());
-		cliente.setNome(txtNome.getText());
-		cliente.setNome(txtNome.getText());
+		cliente.setPeso(Double.parseDouble(txtPeso.getText()));
+		cliente.setNivelAtividade(comboAtividades.getSelectedIndex());
+		cliente.setAltura(Double.parseDouble(txtAltura.getText()));
+		cliente.setIdade(Integer.parseInt(txtIdade.getText()));
+		cliente.setLogradouro(textLogradouro.getText());
+		cliente.setBairro(textBairro.getText());
+		cliente.setCidade(textCidade.getText());
+		cliente.setTelefone(textTelefone.getText());
+		cliente.setEmail(textEmail.getText());
+		
+		ClienteDAO dao = new ClienteDAO(cliente);
+		
+		if(operacao.equals("gravar")) {
+			dao.gravar();
+			if (radioM.isSelected()) {
+				cliente.setSexo('m');
+			} else if (radioF.isSelected()) {
+				cliente.setSexo('f');
+			} else {
+				JOptionPane.showMessageDialog(null, "Selecione o sexo do cliente(Masculino ou Feminino)!");
+			}
+
+			cliente.setNivelAtividade(comboAtividades.getSelectedIndex() + 1);
+
+			lblImcR.setText(String.valueOf(cliente.getImc()));
+			lblTmbR.setText(String.valueOf(cliente.getTmb()));
+			lblFcmR.setText(String.valueOf(cliente.getFcm()));
+			System.out.println(cliente.getImc());
+			// lblPesoR.setText(cliente.getPeso()+ "Kg");
+		}else {
+			
+		}
+		
 		
 		
 	}
