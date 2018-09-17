@@ -3,7 +3,6 @@ package br.senai.sp.cfp127.clientes;
 public class Cliente {
 	
 	//fala fiote
-	private String nome;
 	private int idade;
 	private char sexo;
 	private double peso;
@@ -19,12 +18,9 @@ public class Cliente {
 	private double fcm;
 	
 	//**MÉTODO CONSTRUTOR DA CLASSE(tem o mesmo nome da classe)
-	public Cliente(String nome) {
-		this.nome = nome;
-	}
 	
-	public Cliente(String nome, double peso, double altura) {
-		this.nome = nome;
+	
+	public Cliente(double peso, double altura) {
 		this.peso = peso;
 		this.altura = altura;
 	}

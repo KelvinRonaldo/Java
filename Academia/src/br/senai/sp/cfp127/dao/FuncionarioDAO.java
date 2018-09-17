@@ -2,6 +2,7 @@ package br.senai.sp.cfp127.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import javax.swing.JOptionPane;
@@ -11,11 +12,17 @@ import br.senai.sp.cfp127.modelo.Funcionario;
 import br.senai.sp.cfp127.view.FrmFuncionario;
 
 public class FuncionarioDAO {
-
-	private Funcionario funcionario;
 	
+	//atributo
+	private Funcionario funcionario;
+	// construtor↓ que pede um parametro↓
 	public FuncionarioDAO(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+	
+	//construtor vazio
+	public FuncionarioDAO() {
+		
 	}
 	
 	public Funcionario getFuncionario(int codigo) {
@@ -47,6 +54,38 @@ public class FuncionarioDAO {
 		
 		return funcionario;
 	}
+	
+public ArrayList<Funcionario> getFuncionarios() {
+		
+		ArrayList<Funcionario> funcionarios = new ArrayList<>();
+	
+		try {
+			//função em SQL
+			String consulta = "SELECT * FROM funcionario ORDER BY nome";
+			//statement - leva a função SQl ao banco de dados
+			PreparedStatement stm = Conexao.getConexao().prepareStatement(consulta);
+			//especificar ao statement que a primeira"?" na função SQL é o conteúdo da caixa de txt codigo
+			//o statement leva a função SQL ao banco de dados
+			ResultSet rs = stm.executeQuery();
+									// ↑ query é só no 'SELECT' 
+				// ↓ resultado do select em SQL
+			while(rs.next()) {
+				funcionario = new Funcionario();
+				this.funcionario.setNome(rs.getString("nome"));                	
+				this.funcionario.setEmail(rs.getString("email"));
+				this.funcionario.setCidade(rs.getString("cidade"));
+				this.funcionario.setPeso(rs.getInt("peso"));
+				this.funcionario.setCodigo(rs.getInt("codigo"));
+				funcionarios.add(funcionario);
+			}
+			
+		} catch (Exception erro) {
+			System.out.println(erro.getMessage());
+		}
+		
+		return funcionarios;
+	}
+	
 	
 	public void gravar() {
 		
@@ -126,6 +165,9 @@ public class FuncionarioDAO {
 				JOptionPane.showMessageDialog(null, "Ocorreu um erro na exclusão.");
 		}
 	}
+	
+	
+	
 }
 	
 

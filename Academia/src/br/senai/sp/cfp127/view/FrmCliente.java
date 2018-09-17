@@ -16,11 +16,11 @@ public class FrmCliente extends JFrame {
 	// vairáveis de referência dos componente do frame(janela)
 	private JPanel painelTitulo, painelDados, painelResultado;
 	// declarar várias variáveis do mesmo tipo
-	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblIdade, lblAnos,
+	private JLabel lblTitulo, lblIcone, lblNome, lblSexo, lblPeso, lblKg, lblAltura, lblCm, lblDataNascimento, lblAnos,
 			lblNivelAtiv;
 	private JLabel lblSexoResult, lblImcResult, lblTmbResult, lblFcmResult;
 	private JLabel lblSexoR, lblImcR, lblTmbR, lblFcmR;
-	private JTextField txtNome, txtPeso, txtAltura, txtIdade;
+	private JTextField txtNome, txtPeso, txtAltura, txtdataNascimento;
 	// criar objeto cor
 	private Color cinza = new Color(200, 200, 200);
 	private Color azulEscuro = new Color(7, 71, 102);
@@ -56,7 +56,8 @@ public class FrmCliente extends JFrame {
 
 	public FrmCliente() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/gymIcon128.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/gymIcon128.png")));
 
 		// título do frame
 		setTitle("Cadastro de Cliente");
@@ -155,16 +156,6 @@ public class FrmCliente extends JFrame {
 		btnNewButton.setBounds(32, 11, 147, 80);
 		panel_3.add(btnNewButton);
 
-		btnEditar = new JButton("");
-		btnEditar.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/edit2-64.png")));
-		btnEditar.setBounds(189, 11, 169, 80);
-		panel_3.add(btnEditar);
-
-		btnExcluir = new JButton("");
-		btnExcluir.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/delete64.png")));
-		btnExcluir.setBounds(368, 11, 169, 80);
-		panel_3.add(btnExcluir);
-
 		btnSair = new JButton("");
 		btnSair.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/save-x64.png")));
 		btnSair.setBounds(615, 11, 169, 80);
@@ -175,7 +166,7 @@ public class FrmCliente extends JFrame {
 		panel_1.setLayout(null);
 		// ** PAINEL DADOS
 		painelDados = new JPanel();
-		painelDados.setBounds(10, 0, 794, 231);
+		painelDados.setBounds(10, 0, 794, 215);
 		panel_1.add(painelDados);
 		painelDados.setLayout(null);
 		painelDados.setBorder(
@@ -221,7 +212,7 @@ public class FrmCliente extends JFrame {
 		comboAtividades.setFont(verdana20);
 		// Quilos
 		lblKg = new JLabel("Quilos(Kg)");
-		lblKg.setBounds(712, 72, 72, 25);
+		lblKg.setBounds(702, 72, 72, 25);
 		painelDados.add(lblKg);
 		lblKg.setFont(arialNarrow);
 
@@ -237,15 +228,15 @@ public class FrmCliente extends JFrame {
 		txtAltura.setFont(arial18);
 
 		// IDADE
-		lblIdade = new JLabel("Idade: ");
-		lblIdade.setBounds(407, 39, 75, 30);
-		painelDados.add(lblIdade);
-		lblIdade.setFont(arialBold);
+		lblDataNascimento = new JLabel("Data de Nascimento");
+		lblDataNascimento.setBounds(386, 39, 196, 30);
+		painelDados.add(lblDataNascimento);
+		lblDataNascimento.setFont(arialBold);
 		// DIGITAR IDADE
-		txtIdade = new JTextField();
-		txtIdade.setBounds(407, 70, 100, 30);
-		painelDados.add(txtIdade);
-		txtIdade.setFont(arial18);
+		txtdataNascimento = new JTextField();
+		txtdataNascimento.setBounds(386, 70, 100, 30);
+		painelDados.add(txtdataNascimento);
+		txtdataNascimento.setFont(arial18);
 		// Centimetros
 		lblCm = new JLabel("Cm");
 		lblCm.setBounds(712, 156, 31, 25);
@@ -253,7 +244,7 @@ public class FrmCliente extends JFrame {
 		lblCm.setFont(arialNarrow);
 		// Anos
 		lblAnos = new JLabel("Anos");
-		lblAnos.setBounds(515, 72, 50, 25);
+		lblAnos.setBounds(494, 72, 50, 25);
 		painelDados.add(lblAnos);
 		lblAnos.setFont(arialNarrow);
 
@@ -271,7 +262,7 @@ public class FrmCliente extends JFrame {
 		panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "Endere\u00E7o do Cliente", TitledBorder.LEADING, TitledBorder.TOP,
 				null, Color.BLUE));
-		panel_4.setBounds(10, 242, 603, 215);
+		panel_4.setBounds(10, 221, 603, 215);
 		panel_1.add(panel_4);
 		panel_4.setLayout(null);
 
@@ -325,16 +316,9 @@ public class FrmCliente extends JFrame {
 		panel_4.add(textEmail);
 		textEmail.setColumns(10);
 
-		// BOTÃO CALCULAR
-		btnCalcular = new JButton("");
-		btnCalcular.setBounds(648, 470, 127, 60);
-		panel_1.add(btnCalcular);
-		btnCalcular.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/disquete64.png")));
-		btnCalcular.setFont(arial);
-
 		// **PAINEL RESULTADOS
 		painelResultado = new JPanel();
-		painelResultado.setBounds(623, 242, 181, 215);
+		painelResultado.setBounds(623, 221, 181, 215);
 		panel_1.add(painelResultado);
 		painelResultado.setLayout(null);
 		painelResultado.setBorder(
@@ -368,12 +352,39 @@ public class FrmCliente extends JFrame {
 		lblFcmR.setBounds(69, 156, 102, 30);
 		painelResultado.add(lblFcmR);
 		lblFcmR.setFont(verdana20);
-		
+
 		lblImcR = new JLabel("...");
 		lblImcR.setForeground(new Color(0, 100, 0));
 		lblImcR.setFont(new Font("Verdana", Font.PLAIN, 20));
 		lblImcR.setBounds(69, 42, 102, 30);
 		painelResultado.add(lblImcR);
+
+		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_5.setBounds(10, 438, 794, 92);
+		panel_1.add(panel_5);
+		panel_5.setLayout(null);
+
+		btnExcluir = new JButton("");
+		btnExcluir.setBounds(236, 5, 169, 80);
+		panel_5.add(btnExcluir);
+		btnExcluir.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/delete64.png")));
+
+		btnEditar = new JButton("");
+		btnEditar.setBounds(10, 5, 169, 80);
+		panel_5.add(btnEditar);
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnEditar.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/edit2-64.png")));
+
+		// BOTÃO CALCULAR
+		btnCalcular = new JButton("");
+		btnCalcular.setBounds(657, 25, 127, 60);
+		panel_5.add(btnCalcular);
+		btnCalcular.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/disquete64.png")));
+		btnCalcular.setFont(arial);
 		// cor de fundo do painel de conteúdo
 		// getLayeredPane().add(lblTitulo);
 
@@ -387,7 +398,7 @@ public class FrmCliente extends JFrame {
 				cliente.setNome(txtNome.getText());
 				cliente.setPeso(Double.parseDouble(txtPeso.getText()));
 				cliente.setAltura(Double.parseDouble(txtAltura.getText()));
-				cliente.setIdade(Integer.parseInt(txtIdade.getText()));
+				cliente.setIdade(Integer.parseInt(txtdataNascimento.getText()));
 
 				if (radioM.isSelected()) {
 					cliente.setSexo('m');
@@ -398,7 +409,7 @@ public class FrmCliente extends JFrame {
 				}
 
 				cliente.setNivelAtividade(comboAtividades.getSelectedIndex() + 1);
-				
+
 				lblImcR.setText(String.valueOf(cliente.getImc()));
 				lblTmbR.setText(String.valueOf(cliente.getTmb()));
 				lblFcmR.setText(String.valueOf(cliente.getFcm()));
@@ -406,8 +417,20 @@ public class FrmCliente extends JFrame {
 				// lblPesoR.setText(cliente.getPeso()+ "Kg");
 			}
 		});
-		
+
 		// fazer o frame aparecer
 		setVisible(true);
 	}
+	
+	private void criarCliente(String operacao) {
+		Cliente cliente = new Cliente();
+		cliente.setNome(txtNome.getText());
+		cliente.set(txtNome.getText());
+		cliente.setNome(txtNome.getText());
+		cliente.setNome(txtNome.getText());
+		cliente.setNome(txtNome.getText());
+		
+		
+	}
+
 }

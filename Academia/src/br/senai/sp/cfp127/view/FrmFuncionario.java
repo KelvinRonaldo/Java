@@ -27,6 +27,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTabbedPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FrmFuncionario extends JFrame {
 
@@ -48,22 +51,62 @@ public class FrmFuncionario extends JFrame {
 		setResizable(false);
 		setTitle("Cadastro de Funcionarios");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1179, 480);
+		setBounds(100, 100, 610, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+	
+		//vetor↓
+		String colunas[] = {"Código", "Nome do Funcionário"}; //CABEÇALHO DAS COLUNAS
+		
+		FuncionarioDAO dao = new FuncionarioDAO();
+		int linhas = dao.getFuncionarios().size();
+		//matriz↓ = vetor de vetores
+		String dados[][] = new String[linhas][2];
+		
+		for(int i = 0; i < linhas; i++) {
+			dados[i][0] = String.valueOf(dao.getFuncionarios().get(i).getCodigo());
+			dados[i][1] = dao.getFuncionarios().get(i).getNome();
+		}
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(10, 11, 585, 429);
+		contentPane.add(tabbedPane);
+		
+		
+		panelTabela = new JPanel();
+		tabbedPane.addTab("Lista de Funcionários", null, panelTabela, null);
+		panelTabela.setBorder(new TitledBorder(null, "Tabela de Funcion\u00E1rios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelTabela.setLayout(new BoxLayout(panelTabela, BoxLayout.X_AXIS));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panelTabela.add(scrollPane);
+		
+		tableFuncionario = new JTable(dados, colunas);
+		tableFuncionario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int linha = tableFuncionario.getSelectedRow();
+				String codigo = tableFuncionario.getValueAt(linha, 0).toString();
+				txtCodigo.setText(codigo);
+				criarFuncionario("consultar");
+				tabbedPane.setSelectedIndex(1);
+			}
+		});
+		
+		scrollPane.setViewportView(tableFuncionario);
 		
 		JPanel panelDetalhes = new JPanel();
+		tabbedPane.addTab("Dados do Funcionário", null, panelDetalhes, null);
 		panelDetalhes.setBorder(new TitledBorder(null, "Dados do Funcionario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelDetalhes.setBounds(571, 29, 582, 401);
-		contentPane.add(panelDetalhes);
 		panelDetalhes.setLayout(null);
 		
 		JLabel lblCodigo = new JLabel("C\u00F3digo:");
 		lblCodigo.setBounds(28, 31, 77, 24);
 		panelDetalhes.add(lblCodigo);
 		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 20));
+		
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setBounds(108, 28, 63, 30);
@@ -115,40 +158,23 @@ public class FrmFuncionario extends JFrame {
 		txtPeso.setColumns(10);
 		
 		JButton btnNovo = new JButton("NOVO");
-		btnNovo.setBounds(33, 312, 104, 78);
+		btnNovo.setBounds(28, 297, 104, 78);
 		panelDetalhes.add(btnNovo);
 		
 		JButton btnAtualizar = new JButton("ATUALIZAR");
-		btnAtualizar.setBounds(170, 312, 104, 78);
+		btnAtualizar.setBounds(165, 297, 104, 78);
 		panelDetalhes.add(btnAtualizar);
 		btnAtualizar.setEnabled(false);
 		
 		JButton btnExcluir = new JButton("EXCLUIR");
-		btnExcluir.setBounds(307, 312, 104, 78);
+		btnExcluir.setBounds(302, 297, 104, 78);
 		panelDetalhes.add(btnExcluir);
 		btnExcluir.setEnabled(false);
 		
 		JButton btnSalvar = new JButton("SALVAR");
-		btnSalvar.setBounds(444, 312, 104, 78);
+		btnSalvar.setBounds(439, 297, 104, 78);
 		panelDetalhes.add(btnSalvar);
 		btnSalvar.setEnabled(false);
-		
-		panelTabela = new JPanel();
-		panelTabela.setBorder(new TitledBorder(null, "Tabela de Funcion\u00E1rios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTabela.setBounds(10, 29, 551, 401);
-		contentPane.add(panelTabela);
-		panelTabela.setLayout(new BoxLayout(panelTabela, BoxLayout.X_AXIS));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		panelTabela.add(scrollPane);
-		
-		//vetor↓
-		String colunas[] = {"Código", "Nome do Funcionário"}; //CABEÇALHO DAS COLUNAS
-		//matriz↓ = vetor de vetores
-		String dados[][] = {{"1", "MARIA"}, {"2", "PEDRO"}, {"3", "CARLOS"}, {"4", "FABIANA"}, {"5", "CALUDIA"}};
-		
-		tableFuncionario = new JTable(dados, colunas);
-		scrollPane.setViewportView(tableFuncionario);
 		
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

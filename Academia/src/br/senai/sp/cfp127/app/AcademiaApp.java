@@ -22,9 +22,9 @@ public class AcademiaApp {
 		}
 		
 		
-		//FrmCliente janela = new FrmCliente();
-		FrmFuncionario funcionario = new FrmFuncionario();
-		funcionario.setVisible(true);
+		FrmCliente janela = new FrmCliente();
+		//FrmFuncionario funcionario = new FrmFuncionario();
+		//funcionario.setVisible(true);
 		
 	}
 
