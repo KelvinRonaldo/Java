@@ -6,10 +6,9 @@ public class Pessoa {
 	private String dataNascimento;
 	private String sexo;
 	private String telefone;
-	private String logradouro;
-	private String bairro;
-	private String cidade;
+	private String endereco;
 	private String email;
+	private String cidade;
 	private int peso;
 
 	public String getCidade() {
@@ -74,22 +73,6 @@ public class Pessoa {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
 	}
 
 }
