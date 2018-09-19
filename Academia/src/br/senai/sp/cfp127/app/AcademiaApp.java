@@ -12,7 +12,7 @@ public class AcademiaApp {
 		//↓classe que muda o estilo da janela
 		LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
 						//array	//↑ classe que genrencia a interface de usuario
-		System.out.println(info.length);
+		
 		
 		//try → vai tentar rodar o que será solicitado, se der erro,vai para o catch
 		try {

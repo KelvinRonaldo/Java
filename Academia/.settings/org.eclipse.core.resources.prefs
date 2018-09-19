@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/br/senai/sp/cfp127/app/AcademiaApp.java=UTF-8
 encoding//src/br/senai/sp/cfp127/clientes/Cliente.java=UTF-8
+encoding//src/br/senai/sp/cfp127/dao/ClienteDAO.java=UTF-8
 encoding//src/br/senai/sp/cfp127/dao/FuncionarioDAO.java=UTF-8
 encoding//src/br/senai/sp/cfp127/modelo/Funcionario.java=UTF-8
 encoding//src/br/senai/sp/cfp127/view/FrmCliente.java=UTF-8

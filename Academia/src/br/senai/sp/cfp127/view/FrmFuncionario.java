@@ -92,6 +92,7 @@ public class FrmFuncionario extends JFrame {
 				txtCodigo.setText(codigo);
 				criarFuncionario("consultar");
 				tabbedPane.setSelectedIndex(1);
+			
 			}
 		});
 		
