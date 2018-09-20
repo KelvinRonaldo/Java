@@ -131,6 +131,44 @@ public ArrayList<Cliente> getCliente() {
 	
 	}
 	
+public void atualizar() {
+		
+		try {		
+			//função em SQL
+			String consulta = "UPDATE cliente "
+					+ "SET nome = ?, peso = ?, altura = ?, sexo = ?,"
+					+ " nivelAtividade = ?, logradouro = ?, bairro = ?,"
+					+ " cidade = ?, telefone = ?, email = ?"
+					+ "WHERE codigo = ?";
+			//statement - leva a função SQl ao banco de dados
+			PreparedStatement stm = Conexao.getConexao().prepareStatement(consulta);
+			//especificar ao statement que qual "?"  na função SQL é o conteúdo de cada campo
+			stm.setString(1, cliente.getNome());
+			stm.setDouble(2, cliente.getPeso());
+			stm.setDouble(3, cliente.getAltura());
+			stm.setString(4, String.valueOf(cliente.getSexo()));
+			stm.setLong(5, cliente.getNivelAtividade());
+			stm.setString(6, cliente.getLogradouro());
+			stm.setString(7, cliente.getBairro());
+			stm.setString(8, cliente.getCidade());
+			stm.setString(9, cliente.getTelefone());
+			stm.setString(10, cliente.getEmail());
+			stm.setInt(11, cliente.getId());
+			
+			if(stm.execute()) {
+				JOptionPane.showMessageDialog(null, "Ocorreu um erro na atualização.");
+			}else {
+				JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso.");
+			}
+			
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Ocorreu um erro na atualização.");
+			}
+		
+	}
+	
+	
 public void excluir() {
 		
 		try {		
@@ -144,7 +182,7 @@ public void excluir() {
 			if(stm.execute()) {
 				JOptionPane.showMessageDialog(null, "Ocorreu um erro na exclusão.");
 			}else {
-				JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso.");
+				JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso.");
 			}
 		}	
 		catch (Exception erro) {

@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Cliente {
 
-	// fala fiote
+	
 	private String nome;
 	private int idade;
 	private char sexo;
@@ -17,6 +17,7 @@ public class Cliente {
 	private String telefone;
 	private String email;
 	private int id;
+	private int at;
 	private double imc;
 	private double tmb;
 	private double fcm;
@@ -39,6 +40,16 @@ public class Cliente {
 	public Cliente() {
 
 	}
+	
+	
+	public int getAt() {
+		return at;
+	}
+
+	public void setAt(int at) {
+		this.at = at;
+	}
+
 	public int getId() {
 		return id;
 	}

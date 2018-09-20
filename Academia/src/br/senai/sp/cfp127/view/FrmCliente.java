@@ -43,7 +43,6 @@ public class FrmCliente extends JFrame {
 	private JButton btnCalcular;
 	private JPanel panel_2;
 	private JButton btnNovoLista;
-	private JButton btnEditar1;
 	private JButton btnExcluirLista;
 	private JButton btnSair;
 	private JPanel panel_4;
@@ -58,9 +57,13 @@ public class FrmCliente extends JFrame {
 	private JLabel label;
 	private JTable tableDadosCliente;
 	private JTextField textId;
-	private JLabel labelId;
 	private JButton btnNovoDados;
+	private int atualizar = 0;
 
+	public boolean isCellEditable(int linhas, String[] colunas){
+		return false;
+	}
+	
 	public FrmCliente() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -135,7 +138,7 @@ public class FrmCliente extends JFrame {
 		scrollPane.setBounds(10, 24, 774, 323);
 		panel_2.add(scrollPane);
 
-		String colunas[] = { "ID", "Nome", "Telefone", "Email" };
+		String[] colunas = { "ID", "Nome", "Telefone", "Email" };
 
 		ClienteDAO dao = new ClienteDAO();
 
@@ -148,18 +151,21 @@ public class FrmCliente extends JFrame {
 			dados[i][2] = dao.getCliente().get(i).getTelefone();
 			dados[i][3] = dao.getCliente().get(i).getEmail();
 		}
-
+		
 		tableDadosCliente = new JTable(dados, colunas);
 		tableDadosCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//if(arg0.getClickCount() == 2) {
+				if(arg0.getClickCount() == 2) {
+
+					atualizar = 1;
+					//isCellEditable(linhas, colunas);
 					int linha = tableDadosCliente.getSelectedRow();
 					String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
 					textId.setText(codigo);
 					criarCliente("consultar");
 					tabbedPane.setSelectedIndex(1);
-				//}
+				}
 			}
 		});
 
@@ -178,23 +184,22 @@ public class FrmCliente extends JFrame {
 		panel_3.add(btnNovoLista);
 
 		btnSair = new JButton("");
+		
 		btnSair.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/save-x64.png")));
 		btnSair.setBounds(615, 11, 169, 80);
 		panel_3.add(btnSair);
 
 		btnExcluirLista = new JButton("");
-		btnExcluirLista.setBounds(345, 11, 169, 80);
+		
+		btnExcluirLista.setBounds(323, 11, 169, 80);
 		panel_3.add(btnExcluirLista);
 		btnExcluirLista.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/delete64.png")));
-
-		btnEditar1 = new JButton("");
-		btnEditar1.setBounds(167, 11, 169, 80);
-		panel_3.add(btnEditar1);
-		btnEditar1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnEditar1.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/edit2-64.png")));
+		
+		JButton btnEditar = new JButton("");
+		
+		btnEditar.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/edit2-64.png")));
+		btnEditar.setBounds(166, 11, 147, 80);
+		panel_3.add(btnEditar);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Dados dos Clientes", null, panel_1, "Dados registrados dos Clientes cadastrados");
@@ -216,7 +221,7 @@ public class FrmCliente extends JFrame {
 		// **ELEMENTOS DO PAINEL DE DADOS
 		// NOME
 		lblNome = new JLabel("Nome: ");
-		lblNome.setBounds(25, 39, 75, 30);
+		lblNome.setBounds(91, 39, 333, 30);
 		painelDados.add(lblNome);
 		lblNome.setFont(arialBold);
 
@@ -290,7 +295,7 @@ public class FrmCliente extends JFrame {
 		lblNivelAtiv.setFont(arialBold);
 		// DIGITAR NOME
 		txtNome = new JTextField();
-		txtNome.setBounds(25, 70, 263, 30);
+		txtNome.setBounds(91, 70, 333, 30);
 		painelDados.add(txtNome);
 		txtNome.setFont(arial18);
 
@@ -298,17 +303,13 @@ public class FrmCliente extends JFrame {
 		textId.setEditable(false);
 		textId.setBackground(Color.LIGHT_GRAY);
 		textId.setFont(new Font("Arial", Font.PLAIN, 18));
-		textId.setBounds(312, 70, 55, 30);
+		textId.setBounds(17, 70, 55, 30);
 		painelDados.add(textId);
 
 		JLabel lblId = new JLabel("ID:");
 		lblId.setFont(new Font("Arial", Font.BOLD, 20));
-		lblId.setBounds(312, 39, 64, 30);
+		lblId.setBounds(17, 39, 64, 30);
 		painelDados.add(lblId);
-
-		labelId = new JLabel("...");
-		labelId.setBounds(321, 14, 46, 14);
-		painelDados.add(labelId);
 
 		panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "Endere\u00E7o do Cliente", TitledBorder.LEADING, TitledBorder.TOP,
@@ -440,21 +441,31 @@ public class FrmCliente extends JFrame {
 		// ***LISTENER DO BOTÃO
 		btnNovoLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				atualizar = 0;
 				limparCampos();
+				grupoRadio.clearSelection();
 				tabbedPane.setSelectedIndex(1);
+				txtNome.requestFocus();
 			}
 		});
 		
 		btnNovoDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				atualizar = 0;
 				limparCampos();
-				tabbedPane.setSelectedIndex(1);
+				grupoRadio.clearSelection();
+				txtNome.requestFocus();
 			}
 		});
 		
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarCliente("gravar");
+				if(atualizar == 0) {
+					criarCliente("gravar");
+				}else if(atualizar == 1) {
+					criarCliente("atualizar");
+				}
+				atualizar = 0;
 			}
 		});
 		
@@ -471,7 +482,43 @@ public class FrmCliente extends JFrame {
 				}
 			}
 		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				atualizar = 1;
+				int linha = tableDadosCliente.getSelectedRow();
+				String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
+				textId.setText(codigo);
+				criarCliente("consultar");
+				tabbedPane.setSelectedIndex(1);
+				
+			}
+		});
+		
+		btnExcluirLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int resposta = JOptionPane.showConfirmDialog(null, "Confirmar Exclusão de \n" + tableDadosCliente.getValueAt(tableDadosCliente.getSelectedRow(), 1) + "?", "Exclui Cliente", JOptionPane.YES_NO_OPTION);
+				
+				if(resposta == 0) {
+					int linha = tableDadosCliente.getSelectedRow();
+					String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
+					textId.setText(codigo);
+					criarCliente("excluir");
+					limparCampos();
+					txtNome.requestFocus();
+				}else {
+					
+				}
+				
+			}
+		});
 
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
 		// fazer o frame aparecer
 		setVisible(true);
 	}
@@ -485,7 +532,7 @@ public class FrmCliente extends JFrame {
 		cliente.setCidade(textCidade.getText());
 		cliente.setTelefone(textTelefone.getText());
 		cliente.setEmail(textEmail.getText());
-		cliente.setId(Integer.valueOf(textId.getText()));
+		
 
 		ClienteDAO dao = new ClienteDAO(cliente);
 
@@ -493,7 +540,7 @@ public class FrmCliente extends JFrame {
 			cliente.setPeso(Double.parseDouble(txtPeso.getText()));
 			cliente.setNivelAtividade(comboAtividades.getSelectedIndex());
 			cliente.setAltura(Double.parseDouble(txtAltura.getText()));
-			cliente.setIdade(Integer.parseInt(txtIdade.getText()));
+			//cliente.setIdade(Integer.parseInt(txtIdade.getText()));
 
 			if (radioM.isSelected()) {
 				cliente.setSexo('m');
@@ -503,11 +550,7 @@ public class FrmCliente extends JFrame {
 				JOptionPane.showMessageDialog(null, "Selecione o sexo do cliente(Masculino ou Feminino)!");
 			}
 
-			cliente.setNivelAtividade(comboAtividades.getSelectedIndex() + 1);
-
-			lblImcR.setText(String.valueOf(cliente.getImc()));
-			lblTmbR.setText(String.valueOf(cliente.getTmb()));
-			lblFcmR.setText(String.valueOf(cliente.getFcm()));
+			cliente.setNivelAtividade(comboAtividades.getSelectedIndex());
 			dao.gravar();
 
 		} else if (operacao.equals("consultar")) {
@@ -522,6 +565,9 @@ public class FrmCliente extends JFrame {
 			textTelefone.setText(cliente.getTelefone());
 			textEmail.setText(cliente.getEmail());
 			textCidade.setText(cliente.getCidade());
+			lblImcR.setText(String.valueOf(cliente.getImc()));
+			lblFcmR.setText(String.valueOf(cliente.getFcm()));
+			lblTmbR.setText(String.valueOf(cliente.getTmb()));
 
 			if (String.valueOf(cliente.getSexo()).equals("m")) {
 				radioM.setSelected(true);
@@ -530,7 +576,24 @@ public class FrmCliente extends JFrame {
 			}
 
 		} else if (operacao.equals("excluir")) {
+			cliente.setId(Integer.parseInt(textId.getText()));
 			dao.excluir();
+		}else if(operacao.equals("atualizar")) {
+			cliente.setPeso(Double.parseDouble(txtPeso.getText()));
+			cliente.setNivelAtividade(comboAtividades.getSelectedIndex());
+			cliente.setAltura(Double.parseDouble(txtAltura.getText()));
+			//cliente.setIdade(Integer.parseInt(txtIdade.getText()));
+			cliente.setId(Integer.parseInt(textId.getText()));
+			if (radioM.isSelected()) {
+				cliente.setSexo('m');
+			} else if (radioF.isSelected()) {
+				cliente.setSexo('f');
+			} else {
+				
+			}
+			dao.atualizar();
+		}else {
+			
 		}
 	}
 	
@@ -545,7 +608,5 @@ public class FrmCliente extends JFrame {
 		textTelefone.setText("");
 		textEmail.setText("");
 		textCidade.setText("");
-		radioM.setSelected(false);
-		radioF.setSelected(false);
 	}
 }
