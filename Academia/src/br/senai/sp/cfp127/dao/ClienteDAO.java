@@ -3,11 +3,13 @@ package br.senai.sp.cfp127.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
 import br.senai.sp.cfp127.clientes.Cliente;
 import br.senai.sp.cfp127.dbutil.Conexao;
+import br.senai.sp.cfp127.utils.Data;
 
 
 public class ClienteDAO {
@@ -35,7 +37,6 @@ public Cliente getCliente(int id) {
 			ResultSet rs = stm.executeQuery();
 									// ↑ query é só no 'SELECT' 
 			if(rs.next()) {
-				
 				cliente = new Cliente();
 				this.cliente.setNome(rs.getString("nome"));                	
 				this.cliente.setEmail(rs.getString("email"));
@@ -48,6 +49,8 @@ public Cliente getCliente(int id) {
 				this.cliente.setTelefone(rs.getString("telefone"));
 				this.cliente.setSexo(rs.getString("sexo").charAt(0));
 				this.cliente.setId(rs.getInt("codigo"));
+				this.cliente.setDtNascimento(rs.getDate("dataNascimento"));
+				this.cliente.setIdade(Data.calcularIdade(new Date(), cliente.getDtNascimento()));
 			}else {
 				JOptionPane.showMessageDialog(null, "Registro " + id + " não encontrado");
 			}
@@ -101,8 +104,8 @@ public ArrayList<Cliente> getCliente() {
 		try {		
 			//função em SQL
 			String consulta = "INSERT INTO cliente(nome, peso, altura, sexo, nivelAtividade, "
-					+ "logradouro, bairro, cidade, telefone, email) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "logradouro, bairro, cidade, telefone, email, dataNascimento)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			//statement - leva a função SQl ao banco de dados
 			PreparedStatement stm = Conexao.getConexao().prepareStatement(consulta);
 			//especificar ao statement que qual "?"  na função SQL é o conteúdo de cada campo
@@ -116,6 +119,7 @@ public ArrayList<Cliente> getCliente() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
+			stm.setDate(11, cliente.getDtNascimento());
 			
 			
 			if(stm.execute()) {
@@ -138,7 +142,7 @@ public void atualizar() {
 			String consulta = "UPDATE cliente "
 					+ "SET nome = ?, peso = ?, altura = ?, sexo = ?,"
 					+ " nivelAtividade = ?, logradouro = ?, bairro = ?,"
-					+ " cidade = ?, telefone = ?, email = ?"
+					+ " cidade = ?, telefone = ?, email = ?, dataNascimento = ?"
 					+ "WHERE codigo = ?";
 			//statement - leva a função SQl ao banco de dados
 			PreparedStatement stm = Conexao.getConexao().prepareStatement(consulta);
@@ -154,6 +158,7 @@ public void atualizar() {
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
 			stm.setInt(11, cliente.getId());
+			stm.setDate(12, cliente.getDtNascimento());
 			
 			if(stm.execute()) {
 				JOptionPane.showMessageDialog(null, "Ocorreu um erro na atualização.");

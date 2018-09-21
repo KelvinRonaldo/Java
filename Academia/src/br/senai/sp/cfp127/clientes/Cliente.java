@@ -1,5 +1,7 @@
 package br.senai.sp.cfp127.clientes;
 
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 
 public class Cliente {
@@ -21,6 +23,7 @@ public class Cliente {
 	private double imc;
 	private double tmb;
 	private double fcm;
+	private Date dtNascimento;
 
 	// **MÉTODO CONSTRUTOR DA CLASSE(tem o mesmo nome da classe)
 
@@ -41,6 +44,13 @@ public class Cliente {
 
 	}
 	
+	public Date getDtNascimento() {
+		return dtNascimento;
+	}
+
+	public void setDtNascimento(Date dt) {
+		this.dtNascimento = dt;
+	}
 	
 	public int getAt() {
 		return at;
