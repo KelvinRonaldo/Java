@@ -1,6 +1,7 @@
 package br.senai.sp.cfp127.view;
 
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -59,7 +60,7 @@ public class FrmCliente extends JFrame {
 	private JTable tableDadosCliente;
 	private JTextField textId;
 	private JButton btnNovoDados;
-	private int atualizar = 0;
+	private int atualizar = 0, seNovo = 0;
 
 	public boolean isCellEditable(int linhas, String[] colunas) {
 		return false;
@@ -154,6 +155,7 @@ public class FrmCliente extends JFrame {
 		}
 
 		tableDadosCliente = new JTable(dados, colunas);
+		tableDadosCliente.setDefaultEditor(Object.class, null);
 		tableDadosCliente.setToolTipText("Selecionar Cliente para Editar/Excluir");
 		tableDadosCliente.addMouseListener(new MouseAdapter() {
 			@Override
@@ -469,20 +471,37 @@ public class FrmCliente extends JFrame {
 				limparCampos();
 				btnExcluirDados.setEnabled(false);
 				btnExcluirLista.setEnabled(false);
+				btnEditar.setEnabled(false);
+				btnNovoDados.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/cancelar40.png")));
 				grupoRadio.clearSelection();
 				tabbedPane.setSelectedIndex(1);
 				txtNome.requestFocus();
+				seNovo = 1;
 			}
 		});
 
 		btnNovoDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				atualizar = 0;
-				limparCampos();
-				btnExcluirDados.setEnabled(false);
-				btnExcluirLista.setEnabled(false);
-				grupoRadio.clearSelection();
-				txtNome.requestFocus();
+				if(seNovo == 0) {
+					limparCampos();
+					btnExcluirDados.setEnabled(false);
+					btnExcluirLista.setEnabled(false);
+					btnEditar.setEnabled(false);
+					grupoRadio.clearSelection();
+					txtNome.requestFocus();
+				}else if(seNovo == 1) {
+					limparCampos();
+					btnExcluirDados.setEnabled(true);
+					btnExcluirLista.setEnabled(true);
+					btnEditar.setEnabled(true);
+					btnNovoDados.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/add64.png")));
+					grupoRadio.clearSelection();
+					tabbedPane.setSelectedIndex(0);
+					seNovo = 0;
+				}else {
+					
+				}
 			}
 		});
 
@@ -496,11 +515,13 @@ public class FrmCliente extends JFrame {
 
 				}
 				atualizar = 0;
+				seNovo = 0;
 			}
 		});
 
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				seNovo = 0;
 				txtNome.setEditable(true);
 				txtPeso.setEditable(true);
 				comboAtividades.setEnabled(true);
@@ -512,14 +533,14 @@ public class FrmCliente extends JFrame {
 				txtDataNascimento.setEditable(true);
 				radioM.setEnabled(true);
 				radioF.setEnabled(true);
-				btnNovoDados.setIcon(
-						new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/cancelar4.png")));
+				btnNovoDados.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/cancelar40.png")));
 			}
 		});
 
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				atualizar = 1;
+				seNovo = 0;
 				int linha = tableDadosCliente.getSelectedRow();
 				String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
 				textId.setText(codigo);
@@ -542,6 +563,7 @@ public class FrmCliente extends JFrame {
 
 		btnExcluirDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				seNovo = 0;
 				int resposta = JOptionPane.showConfirmDialog(null, "Confirmar Exclusão de \n" + txtNome.getText() + "?",
 						"Exclui Cliente", JOptionPane.YES_NO_OPTION);
 
@@ -557,10 +579,8 @@ public class FrmCliente extends JFrame {
 
 		btnExcluirLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int resposta = JOptionPane.showConfirmDialog(
-						null, "Confirmar Exclusão de \n"
-								+ tableDadosCliente.getValueAt(tableDadosCliente.getSelectedRow(), 1) + "?",
-						"Exclui Cliente", JOptionPane.YES_NO_OPTION);
+				seNovo = 0;
+				int resposta = JOptionPane.showConfirmDialog(null, "Confirmar Exclusão de \n" + tableDadosCliente.getValueAt(tableDadosCliente.getSelectedRow(), 1) + "?", "Exclui Cliente", JOptionPane.YES_NO_OPTION);
 
 				if (resposta == 0) {
 					int linha = tableDadosCliente.getSelectedRow();

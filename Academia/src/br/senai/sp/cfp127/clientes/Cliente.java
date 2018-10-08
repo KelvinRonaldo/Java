@@ -1,7 +1,6 @@
 package br.senai.sp.cfp127.clientes;
 
 import java.util.Date;
-
 import javax.swing.JOptionPane;
 
 public class Cliente {

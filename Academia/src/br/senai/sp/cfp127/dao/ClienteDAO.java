@@ -1,6 +1,7 @@
 package br.senai.sp.cfp127.dao;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,7 +120,7 @@ public ArrayList<Cliente> getCliente() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
-			stm.setDate(11, cliente.getDtNascimento());
+//			stm.setString(11, (Data.converterParaPortugues(cliente.getDtNascimento(), "dd/MM/yyyy")));
 			
 			
 			if(stm.execute()) {
@@ -157,8 +158,8 @@ public void atualizar() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
-			stm.setInt(11, cliente.getId());
-			stm.setDate(12, cliente.getDtNascimento());
+//			stm.setDate(11, (Data.converterParaAccess(cliente.getDtNascimento())));
+			stm.setInt(12, cliente.getId());
 			
 			if(stm.execute()) {
 				JOptionPane.showMessageDialog(null, "Ocorreu um erro na atualização.");
