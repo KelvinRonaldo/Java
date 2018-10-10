@@ -22,7 +22,7 @@ public class Cliente {
 	private double imc;
 	private double tmb;
 	private double fcm;
-	private Date dtNascimento;
+	private String dtNascimento;
 
 	// **MÉTODO CONSTRUTOR DA CLASSE(tem o mesmo nome da classe)
 
@@ -43,11 +43,11 @@ public class Cliente {
 
 	}
 	
-	public Date getDtNascimento() {
+	public String getDtNascimento() {
 		return dtNascimento;
 	}
 
-	public void setDtNascimento(Date dt) {
+	public void setDtNascimento(String dt) {
 		this.dtNascimento = dt;
 	}
 	

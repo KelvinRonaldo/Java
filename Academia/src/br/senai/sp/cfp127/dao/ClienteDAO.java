@@ -50,8 +50,8 @@ public Cliente getCliente(int id) {
 				this.cliente.setTelefone(rs.getString("telefone"));
 				this.cliente.setSexo(rs.getString("sexo").charAt(0));
 				this.cliente.setId(rs.getInt("codigo"));
-				this.cliente.setDtNascimento(rs.getDate("dataNascimento"));
-				this.cliente.setIdade(Data.calcularIdade(new Date(), cliente.getDtNascimento()));
+				this.cliente.setDtNascimento(Data.converterParaPortugues(rs.getDate("dataNascimento")));
+				this.cliente.setIdade(Data.calcularIdade(new Date(), Data.converteParaDate(cliente.getDtNascimento())));
 			}else {
 				JOptionPane.showMessageDialog(null, "Registro " + id + " não encontrado");
 			}
@@ -100,7 +100,7 @@ public ArrayList<Cliente> getCliente() {
 	return clientes;
 }
 
-	public void gravar() {
+public void gravar() {
 	
 		try {		
 			//função em SQL
@@ -120,7 +120,7 @@ public ArrayList<Cliente> getCliente() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
-//			stm.setString(11, (Data.converterParaPortugues(cliente.getDtNascimento(), "dd/MM/yyyy")));
+			stm.setString(11, Data.converterParaAccess(cliente.getDtNascimento()));
 			
 			
 			if(stm.execute()) {
@@ -136,7 +136,7 @@ public ArrayList<Cliente> getCliente() {
 	
 	}
 	
-public void atualizar() {
+	public void atualizar() {
 		
 		try {		
 			//função em SQL
@@ -158,7 +158,8 @@ public void atualizar() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
-//			stm.setDate(11, (Data.converterParaAccess(cliente.getDtNascimento())));
+			System.out.println("Atualizar: " + cliente.getDtNascimento());
+			stm.setString(11, (Data.converterParaAccess(cliente.getDtNascimento())));
 			stm.setInt(12, cliente.getId());
 			
 			if(stm.execute()) {
