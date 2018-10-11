@@ -156,28 +156,7 @@ public class Cliente {
 
 	public double getImc() {
 		// ↓função matemática de potência
-		this.imc = this.peso / Math.pow(this.altura / 100, 2);
-		/*
-		 * if (imc < 17) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta muito abaixo do peso.\n" +
-		 * "Riscos: Queda de cabelo, infertilidade \n" + "ausência menstrual.";
-		 * 
-		 * }else if (imc < 18.5) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta abaixo do peso.\n" + "Riscos: Fadiga, stress, ansiedade"; }else if
-		 * (imc < 25) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta com o peso normal.\n" + "Menor risco de doençascardíacas \n" +
-		 * "e vasculares;"; }else if (imc < 30) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta acima do peso.\n" + "Riscos: Fadiga, má circulação, varizes";
-		 * }else if (imc < 35) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta com Obesidade de Grau I.\n" +
-		 * "Riscos: Diabetes, angina, infarto, \n" + "aterosclerose"; }else if (imc <
-		 * 41) { this.imc = "Seu IMC é " + imc + "\n" +
-		 * "Você esta com Obesidade de Grau II.\n" +
-		 * "Riscos: Apneia do sono, falta de ar"; }else { this.imc = "Seu IMC é " + imc
-		 * + "\n" + "Você esta com Obesidade de Grau III.\n" +
-		 * "Riscos: Refluxo, dificuldade para se \n" +
-		 * "mover, escaras, diabetes, infarto, AVC"; }
-		 */
+		this.imc = this.peso / Math.pow(this.altura, 2);
 		return this.imc;
 	}
 

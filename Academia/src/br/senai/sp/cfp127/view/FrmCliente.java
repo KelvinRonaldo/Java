@@ -174,7 +174,6 @@ public class FrmCliente extends JFrame {
 					clickNovo = 0;
 					habiDesabilCampos("desabilitar");
 					tabbedPane.setSelectedIndex(1);
-					System.out.println(clickNovo);
 				}
 			}
 		});
@@ -434,17 +433,20 @@ public class FrmCliente extends JFrame {
 		lblFcmResult.setFont(arialBold);
 		// RESULTADO TMB
 		lblTmbR = new JLabel("");
+		lblTmbR.setToolTipText("TMB calculado");
 		lblTmbR.setBounds(69, 99, 102, 30);
 		painelResultado.add(lblTmbR);
 		lblTmbR.setFont(verdana20);
 		lblTmbR.setForeground(new Color(0, 100, 0));
 		// RESULTADO FCM
 		lblFcmR = new JLabel("");
+		lblFcmR.setToolTipText("FCM calculado");
 		lblFcmR.setBounds(69, 156, 102, 30);
 		painelResultado.add(lblFcmR);
 		lblFcmR.setFont(verdana20);
 
 		lblImcR = new JLabel("");
+		lblImcR.setToolTipText("IMC calculado");
 		lblImcR.setForeground(new Color(0, 100, 0));
 		lblImcR.setFont(new Font("Verdana", Font.PLAIN, 20));
 		lblImcR.setBounds(69, 42, 102, 30);
@@ -859,5 +861,8 @@ public class FrmCliente extends JFrame {
 		textTelefone.setText("");
 		textEmail.setText("");
 		textCidade.setText("");
+		lblImcR.setText("");
+		lblTmbR.setText("");
+		lblFcmR.setText("");
 	}
 }

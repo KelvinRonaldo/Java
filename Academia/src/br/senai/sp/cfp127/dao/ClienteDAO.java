@@ -158,7 +158,6 @@ public void gravar() {
 			stm.setString(8, cliente.getCidade());
 			stm.setString(9, cliente.getTelefone());
 			stm.setString(10, cliente.getEmail());
-			System.out.println("Atualizar: " + cliente.getDtNascimento());
 			stm.setString(11, (Data.converterParaAccess(cliente.getDtNascimento())));
 			stm.setInt(12, cliente.getId());
 			
