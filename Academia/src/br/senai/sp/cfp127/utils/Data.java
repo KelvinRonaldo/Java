@@ -18,9 +18,7 @@ public class Data {
 		Date dt = null;
 		
 		try {
-			System.out.println(data);
 			dt = stringParaDate.parse(data);
-			System.out.println(dt);
 		} catch (ParseException e) {
 			System.out.println("Erro na conversão de string para Date");
 			e.printStackTrace();
@@ -44,11 +42,8 @@ public class Data {
 		Date dt = null;
 
 		try {
-			System.out.println(data);
 			dt = stringParaDate.parse(data);
-			System.out.println(dt);
 			data = dateParaString.format(dt);
-			System.out.println(data);
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

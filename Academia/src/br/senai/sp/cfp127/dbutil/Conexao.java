@@ -13,7 +13,7 @@ public class Conexao {
 			//driver do access
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			//conexao até o banco de dados
-			conexao = DriverManager.getConnection("jdbc:ucanaccess://Z:/POO/git/academia.accdb");
+			conexao = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/kelvi/Desktop/SENAI/JAVA/gits/academia.accdb");
 		}catch(Exception erro) {
 			erro.printStackTrace();
 		}
