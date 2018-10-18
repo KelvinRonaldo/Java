@@ -142,44 +142,7 @@ public class FrmCliente extends JFrame {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 24, 774, 323);
 		panel_2.add(scrollPane);
-
-		String[] colunas = { "ID", "Nome", "Telefone", "Email" };
-
-		ClienteDAO dao = new ClienteDAO();
-
-		int linhas = dao.getCliente().size();
-		String dados[][] = new String[linhas][4];
-
-		for (int i = 0; i < linhas; i++) {
-			dados[i][0] = String.valueOf(dao.getCliente().get(i).getId());
-			dados[i][1] = dao.getCliente().get(i).getNome();
-			dados[i][2] = dao.getCliente().get(i).getTelefone();
-			dados[i][3] = dao.getCliente().get(i).getEmail();
-		}
-
-		tableDadosCliente = new JTable(dados, colunas);
-		tableDadosCliente.setDefaultEditor(Object.class, null);
-		tableDadosCliente.setToolTipText("Selecionar Cliente para Editar/Excluir");
-		tableDadosCliente.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (arg0.getClickCount() == 2) {
-					atualizar = 1;
-					clickNovo = 0;
-					int linha = tableDadosCliente.getSelectedRow();
-					String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
-					lblId.setText(codigo);
-					criarCliente("consultar");
-					atualizar = 1;
-					clickNovo = 0;
-					habiDesabilCampos("desabilitar");
-					tabbedPane.setSelectedIndex(1);
-				}
-			}
-		});
-
-		scrollPane.setViewportView(tableDadosCliente);
-
+		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.setBounds(10, 428, 794, 102);
@@ -209,7 +172,7 @@ public class FrmCliente extends JFrame {
 				.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/delete64.png")));
 
 		JButton btnVisualizar = new JButton("");
-
+		
 		btnVisualizar.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/view64.png")));
 		btnVisualizar.setToolTipText("Cadastrar um novo cliente");
 		btnVisualizar.setBounds(167, 11, 146, 80);
@@ -490,6 +453,44 @@ public class FrmCliente extends JFrame {
 		btnEditar.setToolTipText("Editar dados do cliente selecionado");
 		btnEditar.setIcon(new ImageIcon(FrmCliente.class.getResource("/br/senai/sp/cfp127/imagens/edit2-64.png")));
 
+		String[] colunas = { "ID", "Nome", "Telefone", "Email" };
+
+		ClienteDAO dao = new ClienteDAO();
+
+		int linhas = dao.getCliente().size();
+		String dados[][] = new String[linhas][4];
+
+		for (int i = 0; i < linhas; i++) {
+			dados[i][0] = String.valueOf(dao.getCliente().get(i).getId());
+			dados[i][1] = dao.getCliente().get(i).getNome();
+			dados[i][2] = dao.getCliente().get(i).getTelefone();
+			dados[i][3] = dao.getCliente().get(i).getEmail();
+		}
+
+		tableDadosCliente = new JTable(dados, colunas);
+		tableDadosCliente.setDefaultEditor(Object.class, null);
+		tableDadosCliente.setToolTipText("Selecionar Cliente para Editar/Excluir");
+		tableDadosCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (arg0.getClickCount() == 2) {
+					atualizar = 1;
+					clickNovo = 0;
+					int linha = tableDadosCliente.getSelectedRow();
+					String codigo = tableDadosCliente.getValueAt(linha, 0).toString();
+					lblId.setText(codigo);
+					btnEditar.setEnabled(true);
+					btnExcluirDados.setEnabled(true);
+					btnCalcular.setEnabled(true);
+					criarCliente("consultar");
+					habiDesabilCampos("desabilitar");
+					tabbedPane.setSelectedIndex(1);
+				}
+			}
+		});
+
+		scrollPane.setViewportView(tableDadosCliente);
+		
 		// ***LISTENER DO BOTÃO
 		btnNovoLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

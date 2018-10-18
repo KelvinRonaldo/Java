@@ -156,7 +156,7 @@ public class Cliente {
 
 	public double getImc() {
 		// ↓função matemática de potência
-		this.imc = this.peso / Math.pow(this.altura, 2);
+		this.imc = this.peso / Math.pow(this.altura / 100, 2);
 		return this.imc;
 	}
 
